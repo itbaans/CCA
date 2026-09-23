@@ -118,12 +118,3 @@ This assessment is not represented as HIPAA-compliant. A real healthcare deploym
 - Saving is idempotent per Vapi call ID, so a retried tool webhook cannot create a second record.
 - Dashboard and patient API authentication are deployment responsibilities and must be added before exposing real PHI.
 
-## Submission checklist
-
-Fill these in after deployment:
-
-- Repository URL: `____________________`
-- U.S. phone number: `____________________`
-- API base URL: `____________________`
-- Dashboard URL: `____________________`
-- Test notes/credentials: `____________________`
