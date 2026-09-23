@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Patient registration dashboard">
+  <title>Patient Registration</title>
+  <link rel="stylesheet" href="/static/dashboard.css">
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <p class="eyebrow">CARE COORDINATION</p>
+      <h1>Patient registrations</h1>
+      <p class="subtitle">Review demographic records collected by phone or API.</p>
+    </div>
+    <div class="header-actions">
+      <span id="service-status" class="status-pill">Checking service…</span>
+      <a class="button button-secondary" href="/docs">API docs</a>
+      <button id="add-patient" class="button" type="button">Add patient</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="metrics" aria-label="Registration overview">
+      <article><span id="patient-total">—</span><p>Active patients</p></article>
+      <article><span>Voice + API</span><p>Registration channels</p></article>
+      <article><span>Persistent</span><p>SQLite storage</p></article>
+    </section>
+
+    <section class="panel">
+      <div class="toolbar">
+        <div>
+          <h2>Patient directory</h2>
+          <p id="result-count" class="muted">Loading records…</p>
+        </div>
+        <form id="search-form" class="search" role="search">
+          <label><span>Last name</span><input id="last-name" name="last_name" autocomplete="family-name" placeholder="e.g. Davis"></label>
+          <label><span>Date of birth</span><input id="dob" name="date_of_birth" type="date"></label>
+          <label><span>Phone</span><input id="phone" name="phone_number" inputmode="tel" placeholder="(555) 123-4567"></label>
+          <button class="button button-secondary" type="submit">Search</button>
+          <button id="clear-search" class="text-button" type="button">Clear</button>
+        </form>
+      </div>
+
+      <div id="notice" class="notice" role="status" hidden></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Patient</th><th>Date of birth</th><th>Contact</th><th>Location</th><th>Registered</th><th><span class="sr-only">Actions</span></th></tr></thead>
+          <tbody id="patient-rows"></tbody>
+        </table>
+        <div id="empty-state" class="empty-state" hidden>
+          <h3>No patients found</h3><p>Try clearing the filters or add a patient.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="patient-dialog">
+    <form id="patient-form">
+      <div class="dialog-header">
+        <div><p class="eyebrow">PATIENT RECORD</p><h2 id="dialog-title">Add patient</h2></div>
+        <button class="icon-button" type="button" data-close aria-label="Close">×</button>
+      </div>
+      <input id="patient-id" type="hidden">
+      <fieldset><legend>Required information</legend><div class="form-grid">
+        <label>First name<input name="first_name" required maxlength="50" autocomplete="given-name"></label>
+        <label>Last name<input name="last_name" required maxlength="50" autocomplete="family-name"></label>
+        <label>Date of birth<input name="date_of_birth" type="date" required autocomplete="bday"></label>
+        <label>Sex<select name="sex" required><option value="">Select…</option><option>Male</option><option>Female</option><option>Other</option><option>Decline to Answer</option></select></label>
+        <label>Phone<input name="phone_number" required inputmode="tel" autocomplete="tel"></label>
+        <label class="wide">Street address<input name="address_line_1" required maxlength="200" autocomplete="address-line1"></label>
+        <label>City<input name="city" required maxlength="100" autocomplete="address-level2"></label>
+        <label>State<input name="state" required maxlength="2" autocomplete="address-level1" placeholder="TX"></label>
+        <label>ZIP code<input name="zip_code" required maxlength="10" autocomplete="postal-code"></label>
+      </div></fieldset>
+      <details><summary>Optional information</summary><div class="form-grid optional-fields">
+        <label>Email<input name="email" type="email" autocomplete="email"></label>
+        <label>Apartment / unit<input name="address_line_2" maxlength="100" autocomplete="address-line2"></label>
+        <label>Insurance provider<input name="insurance_provider" maxlength="100"></label>
+        <label>Member ID<input name="insurance_member_id" maxlength="50"></label>
+        <label>Preferred language<input name="preferred_language" value="English" maxlength="50"></label>
+        <label>Emergency contact<input name="emergency_contact_name" maxlength="101"></label>
+        <label>Emergency phone<input name="emergency_contact_phone" inputmode="tel"></label>
+      </div></details>
+      <div id="form-error" class="form-error" role="alert" hidden></div>
+      <div class="dialog-actions"><button class="button button-secondary" type="button" data-close>Cancel</button><button class="button" type="submit">Save patient</button></div>
+    </form>
+  </dialog>
+
+  <script src="/static/dashboard.js" defer></script>
+</body>
+</html>

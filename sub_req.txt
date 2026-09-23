@@ -1,0 +1,6 @@
+ Send us:
+• Repository URL
+• US Phone number to call
+• API base URL (e.g., https://your-app.railway.app)
+• Any credentials or notes needed for testing
+• Dashboard

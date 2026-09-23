@@ -1,0 +1,24 @@
+{
+  "type": "function",
+  "async": false,
+  "function": {
+    "name": "check_existing_patient",
+    "description": "Checks for an active patient after a valid phone number is collected.",
+    "strict": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "phone_number": {
+          "type": "string",
+          "description": "Confirmed 10-digit U.S. phone number."
+        }
+      },
+      "required": ["phone_number"],
+      "additionalProperties": false
+    }
+  },
+  "server": {
+    "url": "https://YOUR_DOMAIN/vapi/webhook",
+    "timeoutSeconds": 10
+  }
+}
